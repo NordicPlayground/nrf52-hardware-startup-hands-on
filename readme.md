@@ -1,6 +1,6 @@
-Hardware Startup London – Hands On
+#Hardware Startup London – Hands On
 
-1.	Download the example zip from GitHub using this link. 
+1.	Download the example zip.
 2.	Extract the example zip to <SKD-folder>/examples/peripheral. 
 3.	Open the project found in ble_app_uart/pca10040/s132/arm5_no_packs in Keil 
 4.	Edit the DEVICE_NAME from “Nordic_UART” to a name of your choosing, but with the same length. 
@@ -8,14 +8,12 @@ Hardware Startup London – Hands On
 6.	Flash the S132 SoftDevice and the application to your nRF52 DK.
 7.	Open the nRF Toolbox App, click the UART Tool and then connect. Your device should show up under “Available Devices” with the name you gave it earlier.  
 
-TASK 1 – RGB LED 
+##TASK 1 – RGB LED 
 
-Scope: In this task we will send commands to the nRF52 DK over the Nordic UART Service(NUS) and based on these commands turn on and off the RGB LED on the mBED Application Shield.  
+**Scope:** In this task we will send commands to the nRF52 DK over the Nordic UART Service(NUS) and based on these commands turn on and off the RGB LED on the mBED Application Shield.  
 
 1.	Find the uart_command_t enum in the functions.h header files and edit “COMMAND_1” to “RED_ON” and “COMMAND_2” to “RED_OFF”.
-
 2.	In the nus_data_handler(), edit the “COMMAND1” to “REDON”. This is the string that will be compared to the string received from the NUS service.
-
 3.	Set command equal to RED_ON, i.e. command = RED_ON;
 4.	In the uart_command_handler, edit the “COMMAND_1” case in the switch-case to “RED_ON” and call the function rgb_led_set( RED).
 5.	In the uart_command_handler, edit the “COMMAND_2” case in the switch-case to “RED_OFF” and call the function rgb_led_clear( RED).
@@ -29,9 +27,9 @@ Scope: In this task we will send commands to the nRF52 DK over the Nordic UART S
 
 
 
-TASK 2 – POTENTIOMETER & SAADC
+##TASK 2 – POTENTIOMETER & SAADC
 
-Scope: In this task we’ll set up an application timer to trigger the Single Approximation ADC (SAADC) of the nRF52 to sample the analog input of potentiometer 1 on the mBED application shield and send the value to your smartphone using the NUS service. 
+**Scope:** In this task we’ll set up an application timer to trigger the Single Approximation ADC (SAADC) of the nRF52 to sample the analog input of potentiometer 1 on the mBED application shield and send the value to your smartphone using the NUS service. 
 
 1.	Add the “START_ADC” and “STOP_ADC” commands to the uart_command_t enum. 
 2.	Add two else if-statements in nus_data_handler() to check for the “ADCON” and “ADCOFF” commands in the uart string, and set the corresponding command.
@@ -51,9 +49,9 @@ Scope: In this task we’ll set up an application timer to trigger the Single Ap
 
 
 
-TASK 3 – TWI & ACCELEROMETER (OPTIONAL)
+##TASK 3 – TWI & ACCELEROMETER (OPTIONAL)
  
-Scope: In this optional task we’ll use the TWI interface of the nRF52 to communicate with the MMA7660 accelerometer on the mBED Application Shield and send the accelerometer data to your smartphone using the NUS service.
+**Scope:** In this optional task we’ll use the TWI interface of the nRF52 to communicate with the MMA7660 accelerometer on the mBED Application Shield and send the accelerometer data to your smartphone using the NUS service.
 
 1.	Add “START_ACC” and “STOP_ACC” commands to the uart_command_t enum.
 2.	Add two else if-statements in nus_data_handler() to check for the “ACCON” and “ACCOFF” commands in the uart string, and set the corresponding commands.
