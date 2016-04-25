@@ -32,6 +32,7 @@ Scope: In this task we will send commands to the nRF52 DK over the Nordic UART S
 TASK 2 – POTENTIOMETER & SAADC
 
 Scope: In this task we’ll set up an application timer to trigger the Single Approximation ADC (SAADC) of the nRF52 to sample the analog input of potentiometer 1 on the mBED application shield and send the value to your smartphone using the NUS service. 
+
 1.	Add the “START_ADC” and “STOP_ADC” commands to the uart_command_t enum. 
 2.	Add two else if-statements in nus_data_handler() to check for the “ADCON” and “ADCOFF” commands in the uart string, and set the corresponding command.
 3.	Add APP_TIMER_DEF(m_adc_timer_id); to the top of main.c to create a timer ID.
@@ -53,6 +54,7 @@ Scope: In this task we’ll set up an application timer to trigger the Single Ap
 TASK 3 – TWI & ACCELEROMETER (OPTIONAL)
  
 Scope: In this optional task we’ll use the TWI interface of the nRF52 to communicate with the MMA7660 accelerometer on the mBED Application Shield and send the accelerometer data to your smartphone using the NUS service.
+
 1.	Add “START_ACC” and “STOP_ACC” commands to the uart_command_t enum.
 2.	Add two else if-statements in nus_data_handler() to check for the “ACCON” and “ACCOFF” commands in the uart string, and set the corresponding commands.
 3.	Add APP_TIMER_DEF(m_acc_timer_id); add the top of main.c to create a timer ID.
