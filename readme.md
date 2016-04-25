@@ -11,8 +11,11 @@ Hardware Startup London – Hands On
 TASK 1 – RGB LED 
 
 Scope: In this task we will send commands to the nRF52 DK over the Nordic UART Service(NUS) and based on these commands turn on and off the RGB LED on the mBED Application Shield.  
+
 1.	Find the uart_command_t enum in the functions.h header files and edit “COMMAND_1” to “RED_ON” and “COMMAND_2” to “RED_OFF”.
+
 2.	In the nus_data_handler(), edit the “COMMAND1” to “REDON”. This is the string that will be compared to the string received from the NUS service.
+
 3.	Set command equal to RED_ON, i.e. command = RED_ON;
 4.	In the uart_command_handler, edit the “COMMAND_1” case in the switch-case to “RED_ON” and call the function rgb_led_set( RED).
 5.	In the uart_command_handler, edit the “COMMAND_2” case in the switch-case to “RED_OFF” and call the function rgb_led_clear( RED).
