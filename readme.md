@@ -34,7 +34,7 @@
 1.	Add the “START_ADC” and “STOP_ADC” commands to the uart_command_t enum. 
 2.	Add two else if-statements in nus_data_handler() to check for the “ADCON” and “ADCOFF” commands in the uart string, and set the corresponding command.
 3.	Add APP_TIMER_DEF(m_adc_timer_id); to the top of main.c to create a timer ID.
-4.	In init_timers() use the app_timer_create() - function to create an application timer instance with the ID from step 5. Hint: See the Application Timer API on Infocenter, found here. You can also take a look at the Application Timer tutorial on DevZone, found here.
+4.	In init_timers() use the app_timer_create() - function to create an application timer instance with the ID from step 5. Hint: See the Application Timer API on Infocenter, found [here](http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v11.0.0/group__app__timer.html?resultof=%22%61%70%70%5f%74%69%6d%65%72%5f%63%72%65%61%74%65%22%20). You can also take a look at the Application Timer tutorial on DevZone, found [here](https://devzone.nordicsemi.com/tutorials/19/).
 5.	Call nrf_drv_saadc_sample() in the timeout_handler specified in app_timer_create()  to trigger the SAADC to sample the analog input connected to the potentiometer. 
 6.	Initialize the SAADC driver by adding the saadc_init() function in main().
 7.	Use the ble_nus_string_send() function in saadc_callback() to send the ADC measurement to your smartphone. Hint: Use sprintf() 
