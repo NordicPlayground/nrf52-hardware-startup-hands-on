@@ -1,11 +1,14 @@
 PROJECT_NAME := ble_app_uart_s132_pca10040
 
+NRFJPROG := ../../../tools/nrfjprog/nrfjprog
+SDK := ../../../sdk
+
 export OUTPUT_FILENAME
 #MAKEFILE_NAME := $(CURDIR)/$(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
 MAKEFILE_NAME := $(MAKEFILE_LIST)
 MAKEFILE_DIR := $(dir $(MAKEFILE_NAME) ) 
 
-TEMPLATE_PATH = ../../../../../../components/toolchain/gcc
+TEMPLATE_PATH = $(SDK)/components/toolchain/gcc
 ifeq ($(OS),Windows_NT)
 include $(TEMPLATE_PATH)/Makefile.windows
 else
@@ -37,69 +40,77 @@ remduplicates = $(strip $(if $1,$(firstword $1) $(call remduplicates,$(filter-ou
 
 #source common to all targets
 C_SOURCE_FILES += \
-$(abspath ../../../../../../components/libraries/button/app_button.c) \
-$(abspath ../../../../../../components/libraries/util/app_error.c) \
-$(abspath ../../../../../../components/libraries/util/app_error_weak.c) \
-$(abspath ../../../../../../components/libraries/fifo/app_fifo.c) \
-$(abspath ../../../../../../components/libraries/timer/app_timer.c) \
-$(abspath ../../../../../../components/libraries/util/app_util_platform.c) \
-$(abspath ../../../../../../components/libraries/fstorage/fstorage.c) \
-$(abspath ../../../../../../components/libraries/util/nrf_assert.c) \
-$(abspath ../../../../../../components/libraries/util/nrf_log.c) \
-$(abspath ../../../../../../components/libraries/uart/retarget.c) \
-$(abspath ../../../../../../external/segger_rtt/RTT_Syscalls_GCC.c) \
-$(abspath ../../../../../../external/segger_rtt/SEGGER_RTT.c) \
-$(abspath ../../../../../../external/segger_rtt/SEGGER_RTT_printf.c) \
-$(abspath ../../../../../../components/libraries/uart/app_uart_fifo.c) \
-$(abspath ../../../../../../components/drivers_nrf/delay/nrf_delay.c) \
-$(abspath ../../../../../../components/drivers_nrf/common/nrf_drv_common.c) \
-$(abspath ../../../../../../components/drivers_nrf/gpiote/nrf_drv_gpiote.c) \
-$(abspath ../../../../../../components/drivers_nrf/uart/nrf_drv_uart.c) \
-$(abspath ../../../../../../components/drivers_nrf/pstorage/pstorage.c) \
-$(abspath ../../../../../bsp/bsp.c) \
-$(abspath ../../../../../bsp/bsp_btn_ble.c) \
+$(abspath $(SDK)/components/libraries/button/app_button.c) \
+$(abspath $(SDK)/components/libraries/util/app_error.c) \
+$(abspath $(SDK)/components/libraries/util/app_error_weak.c) \
+$(abspath $(SDK)/components/libraries/fifo/app_fifo.c) \
+$(abspath $(SDK)/components/libraries/timer/app_timer.c) \
+$(abspath $(SDK)/components/libraries/util/app_util_platform.c) \
+$(abspath $(SDK)/components/libraries/fstorage/fstorage.c) \
+$(abspath $(SDK)/components/libraries/util/nrf_assert.c) \
+$(abspath $(SDK)/components/libraries/util/nrf_log.c) \
+$(abspath $(SDK)/components/libraries/uart/retarget.c) \
+$(abspath $(SDK)/external/segger_rtt/RTT_Syscalls_GCC.c) \
+$(abspath $(SDK)/external/segger_rtt/SEGGER_RTT.c) \
+$(abspath $(SDK)/external/segger_rtt/SEGGER_RTT_printf.c) \
+$(abspath $(SDK)/components/libraries/uart/app_uart_fifo.c) \
+$(abspath $(SDK)/components/drivers_nrf/delay/nrf_delay.c) \
+$(abspath $(SDK)/components/drivers_nrf/common/nrf_drv_common.c) \
+$(abspath $(SDK)/components/drivers_nrf/gpiote/nrf_drv_gpiote.c) \
+$(abspath $(SDK)/components/drivers_nrf/uart/nrf_drv_uart.c) \
+$(abspath $(SDK)/components/drivers_nrf/pstorage/pstorage.c) \
+$(abspath $(SDK)/examples/bsp/bsp.c) \
+$(abspath $(SDK)/examples/bsp/bsp_btn_ble.c) \
 $(abspath ../../../main.c) \
-$(abspath ../../../../../../components/ble/common/ble_advdata.c) \
-$(abspath ../../../../../../components/ble/ble_advertising/ble_advertising.c) \
-$(abspath ../../../../../../components/ble/common/ble_conn_params.c) \
-$(abspath ../../../../../../components/ble/ble_services/ble_nus/ble_nus.c) \
-$(abspath ../../../../../../components/ble/common/ble_srv_common.c) \
-$(abspath ../../../../../../components/toolchain/system_nrf52.c) \
-$(abspath ../../../../../../components/softdevice/common/softdevice_handler/softdevice_handler.c) \
+$(abspath $(SDK)/components/ble/common/ble_advdata.c) \
+$(abspath $(SDK)/components/ble/ble_advertising/ble_advertising.c) \
+$(abspath $(SDK)/components/ble/common/ble_conn_params.c) \
+$(abspath $(SDK)/components/ble/ble_services/ble_nus/ble_nus.c) \
+$(abspath $(SDK)/components/ble/common/ble_srv_common.c) \
+$(abspath $(SDK)/components/toolchain/system_nrf52.c) \
+$(abspath $(SDK)/components/softdevice/common/softdevice_handler/softdevice_handler.c) \
+$(abspath $(SDK)/components/libraries/pwm/app_pwm.c) \
+$(abspath $(SDK)/components/drivers_nrf/timer/nrf_drv_timer.c) \
+$(abspath $(SDK)/components/drivers_nrf/ppi/nrf_drv_ppi.c) \
 
 #assembly files common to all targets
-ASM_SOURCE_FILES  = $(abspath ../../../../../../components/toolchain/gcc/gcc_startup_nrf52.s)
+ASM_SOURCE_FILES  = $(abspath $(SDK)/components/toolchain/gcc/gcc_startup_nrf52.s)
 
 #includes common to all targets
 INC_PATHS  = -I$(abspath ../../../config/ble_app_uart_s132_pca10040)
 INC_PATHS += -I$(abspath ../../../config)
-INC_PATHS += -I$(abspath ../../../../../../components/drivers_nrf/config)
-INC_PATHS += -I$(abspath ../../../../../../components/libraries/timer)
-INC_PATHS += -I$(abspath ../../../../../../components/libraries/fifo)
-INC_PATHS += -I$(abspath ../../../../../../components/libraries/fstorage/config)
-INC_PATHS += -I$(abspath ../../../../../../components/drivers_nrf/delay)
-INC_PATHS += -I$(abspath ../../../../../../components/softdevice/s132/headers/nrf52)
-INC_PATHS += -I$(abspath ../../../../../../components/libraries/util)
-INC_PATHS += -I$(abspath ../../../../../../components/drivers_nrf/uart)
-INC_PATHS += -I$(abspath ../../../../../../components/ble/common)
-INC_PATHS += -I$(abspath ../../../../../../components/drivers_nrf/pstorage)
-INC_PATHS += -I$(abspath ../../../../../../components/libraries/uart)
-INC_PATHS += -I$(abspath ../../../../../../components/device)
-INC_PATHS += -I$(abspath ../../../../../../components/libraries/button)
-INC_PATHS += -I$(abspath ../../../../../../components/libraries/fstorage)
-INC_PATHS += -I$(abspath ../../../../../../components/libraries/experimental_section_vars)
-INC_PATHS += -I$(abspath ../../../../../../components/softdevice/s132/headers)
-INC_PATHS += -I$(abspath ../../../../../../components/drivers_nrf/gpiote)
-INC_PATHS += -I$(abspath ../../../../../../external/segger_rtt)
-INC_PATHS += -I$(abspath ../../../../../bsp)
-INC_PATHS += -I$(abspath ../../../../../../components/ble/ble_services/ble_nus)
-INC_PATHS += -I$(abspath ../../../../../../components/toolchain/CMSIS/Include)
-INC_PATHS += -I$(abspath ../../../../../../components/drivers_nrf/hal)
-INC_PATHS += -I$(abspath ../../../../../../components/toolchain/gcc)
-INC_PATHS += -I$(abspath ../../../../../../components/toolchain)
-INC_PATHS += -I$(abspath ../../../../../../components/drivers_nrf/common)
-INC_PATHS += -I$(abspath ../../../../../../components/ble/ble_advertising)
-INC_PATHS += -I$(abspath ../../../../../../components/softdevice/common/softdevice_handler)
+INC_PATHS += -I$(abspath $(SDK)/components/drivers_nrf/twi_master)
+INC_PATHS += -I$(abspath $(SDK)/components/drivers_nrf/saadc)
+INC_PATHS += -I$(abspath $(SDK)/components/drivers_nrf/ppi)
+INC_PATHS += -I$(abspath $(SDK)/components/drivers_nrf/timer)
+INC_PATHS += -I$(abspath $(SDK)/components/drivers_nrf/config)
+INC_PATHS += -I$(abspath $(SDK)/components/libraries/pwm)
+INC_PATHS += -I$(abspath $(SDK)/components/libraries/timer)
+INC_PATHS += -I$(abspath $(SDK)/components/libraries/fifo)
+INC_PATHS += -I$(abspath $(SDK)/components/libraries/fstorage/config)
+INC_PATHS += -I$(abspath $(SDK)/components/drivers_nrf/delay)
+INC_PATHS += -I$(abspath $(SDK)/components/softdevice/s132/headers/nrf52)
+INC_PATHS += -I$(abspath $(SDK)/components/libraries/util)
+INC_PATHS += -I$(abspath $(SDK)/components/drivers_nrf/uart)
+INC_PATHS += -I$(abspath $(SDK)/components/ble/common)
+INC_PATHS += -I$(abspath $(SDK)/components/drivers_nrf/pstorage)
+INC_PATHS += -I$(abspath $(SDK)/components/libraries/uart)
+INC_PATHS += -I$(abspath $(SDK)/components/device)
+INC_PATHS += -I$(abspath $(SDK)/components/libraries/button)
+INC_PATHS += -I$(abspath $(SDK)/components/libraries/fstorage)
+INC_PATHS += -I$(abspath $(SDK)/components/libraries/experimental_section_vars)
+INC_PATHS += -I$(abspath $(SDK)/components/softdevice/s132/headers)
+INC_PATHS += -I$(abspath $(SDK)/components/drivers_nrf/gpiote)
+INC_PATHS += -I$(abspath $(SDK)/external/segger_rtt)
+INC_PATHS += -I$(abspath $(SDK)/examples/bsp)
+INC_PATHS += -I$(abspath $(SDK)/components/ble/ble_services/ble_nus)
+INC_PATHS += -I$(abspath $(SDK)/components/toolchain/CMSIS/Include)
+INC_PATHS += -I$(abspath $(SDK)/components/drivers_nrf/hal)
+INC_PATHS += -I$(abspath $(SDK)/components/toolchain/gcc)
+INC_PATHS += -I$(abspath $(SDK)/components/toolchain)
+INC_PATHS += -I$(abspath $(SDK)/components/drivers_nrf/common)
+INC_PATHS += -I$(abspath $(SDK)/components/ble/ble_advertising)
+INC_PATHS += -I$(abspath $(SDK)/components/softdevice/common/softdevice_handler)
 
 OBJECT_DIRECTORY = _build
 LISTING_DIRECTORY = $(OBJECT_DIRECTORY)
@@ -258,11 +269,11 @@ cleanobj:
 	$(RM) $(BUILD_DIRECTORIES)/*.o
 flash: nrf52832_xxaa_s132
 	@echo Flashing: $(OUTPUT_BINARY_DIRECTORY)/$<.hex
-	nrfjprog --program $(OUTPUT_BINARY_DIRECTORY)/$<.hex -f nrf52  --sectorerase
-	nrfjprog --reset -f nrf52
+	$(NRFJPROG) --program $(OUTPUT_BINARY_DIRECTORY)/$<.hex -f nrf52  --sectorerase
+	$(NRFJPROG) --reset -f nrf52
 
 ## Flash softdevice
 flash_softdevice:
 	@echo Flashing: s132_nrf52_2.0.0_softdevice.hex
-	nrfjprog --program ../../../../../../components/softdevice/s132/hex/s132_nrf52_2.0.0_softdevice.hex -f nrf52 --chiperase
-	nrfjprog --reset -f nrf52
+	$(NRFJPROG) --program $(SDK)/components/softdevice/s132/hex/s132_nrf52_2.0.0_softdevice.hex -f nrf52 --chiperase
+	$(NRFJPROG) --reset -f nrf52
