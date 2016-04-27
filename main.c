@@ -696,10 +696,10 @@ void uart_command_handler(uart_command_t  command)
     switch(command)
     {
         case COMMAND_1:
-            // Put Action to COMMAND_1 here.
+            LEDS_INVERT(1 << LED_1);
             break;
         case COMMAND_2:
-            // Put Action to COMMAND_2 here.
+            LEDS_INVERT(1 << LED_2);
             break;
         case COMMAND_3:
             // Put Action to COMMAND_3 here.
@@ -753,6 +753,7 @@ int main(void)
     /* #### PLACE TASK 3 CODE HERE #### */
     
 
+    LEDS_CONFIGURE(LEDS_MASK);
        
     // Enter main loop.
     for (;;)
