@@ -49,4 +49,8 @@ distclean: cleanall
 	$(MAKE) -C tools $@
 	rm -f $(SDK_ZIPFILE)
 
+# install udev rules to allow access segger device without being root
+udev_rule /etc/udev/rules.d/99-jlink.rules:
+	sudo cp 99-jlink.rules /etc/udev/rules.d/
+
 .PHONY: default check cleanall blinky deploy_blinky
