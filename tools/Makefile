@@ -19,7 +19,7 @@ $(TOOLCHAIN_TARBALL):
 
 # download programming tools
 $(NRF5X_TOOLS_TARBALL):
-	wget -O $@ https://www.nordicsemi.com/eng/nordic/download_resource/51392/12/22403371
+	wget -O $@ https://www.nordicsemi.com/eng/nordic/download_resource/51386/29/52613202/94917
 
 # unpack programming tools
 nrfjprog/.done: $(NRF5X_TOOLS_TARBALL)

@@ -1,23 +1,21 @@
-OLDLOC              := /usr/local/gcc-arm-none-eabi-4_9-2015q1
+OLDLOC              := /usr/local/gcc-arm-none-eabi-4_9-2015q3
 NEWLOC              := $(shell pwd)/tools/gcc-arm-none-eabi-4_9-2015q3
-MKPOSIX             := sdk/components/toolchain/gcc/Makefile.posix
-SDK_ZIPFILE         := nRF5_SDK_11.0.0_89a8197.zip
-BLINKY_ARMGCC       := sdk/examples/peripheral/blinky/pca10040/blank/armgcc
+MKPOSIX             := sdk/nRF5_SDK_14.2.0_17b948a/components/toolchain/gcc/Makefile.posix
+SDK_ZIPFILE         := nRF5_SDK_14.2.0_17b948a.zip
+BLINKY_ARMGCC       := sdk/nRF5_SDK_14.2.0_17b948a/examples/peripheral/blinky/pca10040/blank/armgcc
 
 NRFJPROG := ./tools/nrfjprog/nrfjprog
 
 default: tools/tools.done sdk/.done
-	$(MAKE) -C pca10040/s132/armgcc
 
 flash flash_softdevice:
-	$(MAKE) -C pca10040/s132/armgcc $@
 
 tools/tools.done:
 	$(MAKE) -C tools
 
 # download sdk
 $(SDK_ZIPFILE):
-	wget http://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v11.x.x/$@
+	wget http://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v14.x.x/$@
 
 # unpack and fixup sdk
 sdk/.done: $(SDK_ZIPFILE)
@@ -52,5 +50,6 @@ distclean: cleanall
 # install udev rules to allow access segger device without being root
 udev_rule /etc/udev/rules.d/99-jlink.rules:
 	sudo cp 99-jlink.rules /etc/udev/rules.d/
+	sudo udevadm control --reload-rules
 
 .PHONY: default check cleanall blinky deploy_blinky
